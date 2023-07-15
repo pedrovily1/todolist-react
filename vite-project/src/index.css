@@ -1,0 +1,52 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: rgb(84, 130, 106);
+}
+
+.todo-container {
+  width: 400px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.todo-container h1 {
+  text-align: center;
+  margin: 10px;
+}
+
+.todo-container input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  margin-left: -10px;
+}
+
+.todo-container button {
+  padding: 8px 12px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.todo-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.todo-container li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.todo-container li button {
+  margin-left: 10px;
+  background-color: #f44336;
+}
