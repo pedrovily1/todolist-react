@@ -17,6 +17,8 @@ const { Pool } = pg;
 //  connectionString: process.env.DATABASE_URL,
 //});
 
+app.use(express.static("dist"))
+
 
 const pool = new Pool({
   user: 'postgres',
