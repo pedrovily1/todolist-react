@@ -56,7 +56,7 @@ function App() {
 
   return (
     <div className="todo-container">
-      <h1>Todo List</h1>
+      <h1>Things I need to do</h1>
       <input
         type="text"
         value={newTodoText}

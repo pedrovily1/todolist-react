@@ -1,22 +1,35 @@
 body {
   display: flex;
+  font-family: sans-serif;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
-  background-color: rgb(84, 130, 106);
+  background: linear-gradient(to bottom right, #88ce37, #66ccff);
+
 }
 
 .todo-container {
   width: 400px;
-  background-color: #f2f2f2;
+  height: 200px;
+  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
   padding: 20px;
   border-radius: 8px;
+  transition: transform 0.3s ease;
+
+}
+.todo-container:hover {
+  transform: scale(1.1);
 }
 
 .todo-container h1 {
   text-align: center;
   margin: 10px;
+  color: #333;
+  font-weight: 80;
 }
 
 .todo-container input[type="text"] {
@@ -24,15 +37,25 @@ body {
   padding: 8px;
   margin-bottom: 10px;
   margin-left: -10px;
+
+  border-radius: 4px;
 }
 
 .todo-container button {
   padding: 8px 12px;
   background-color: #4caf50;
+  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.4);
+  margin-left: 160px;
+  margin-top: 10px;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.todo-container button:hover {
+  background-color: #45a448;
 }
 
 .todo-container ul {
@@ -49,4 +72,13 @@ body {
 .todo-container li button {
   margin-left: 10px;
   background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.todo-container li button:hover {
+  background-color: #e53935;
 }
