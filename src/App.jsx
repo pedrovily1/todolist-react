@@ -7,7 +7,7 @@ function App() {
   const [editingId, setEditingId] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/todos')
+    fetch('/api/todos')
       .then(response => response.json())
       .then(data => setTodos(data));
   }, []);
@@ -15,7 +15,7 @@ function App() {
   function addTodo() {
     const newTodo = { text: newTodoText };
 
-    fetch('http://localhost:3001/api/todos', {
+    fetch('/api/todos', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ function App() {
   }
 
   function deleteTodo(id) {
-    fetch(`http://localhost:3001/api/todos/${id}`, {
+    fetch(`/api/todos/${id}`, {
       method: 'DELETE',
     })
       .then(() => {
@@ -41,7 +41,7 @@ function App() {
   function updateTodo(id, text, completed) {
     const updatedTodo = { text, completed };
 
-    fetch(`http://localhost:3001/api/todos/${id}`, {
+    fetch(`/api/todos/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
