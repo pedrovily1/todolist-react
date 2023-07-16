@@ -4,53 +4,36 @@ import pg from "pg";
 import dotenv from "dotenv";
 dotenv.config();
 
-const port = process.env.PORT ;
+const port = process.env.PORT || 3000;
 
-//import { Pool } from 'pg';
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-
 const { Pool } = pg;
 const db_conn = new Pool({
   connectionString: process.env.DATABASE_URL,
-});
-
-app.use(express.static("dist"))
-
-
-const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'todos',
-  password: '4545',
-  port: 5432,
-});
-
-/*let todos = [
-    { id: 1, text: 'First todo', completed: false },
-    { id: 2, text: 'Second todo', completed: false },
-  ];
-*/
-  function generateId() {
-    return todos.length ? Math.max(...todos.map(todo => todo.id)) + 1 : 1;
+  ssl: {
+    rejectUnauthorized: false
   }
+});
 
- // Create
+app.use(express.static("dist"));
+
+// Create
 app.post('/api/todos', (req, res) => {
   const { text } = req.body;
-  const newTodo = {  text, completed: false };
+  const newTodo = { text, completed: false };
 
-  pool.query(
-    'INSERT INTO todos (text, completed) VALUES ($1, $2)',
+  db_conn.query(
+    'INSERT INTO todos (text, completed) VALUES ($1, $2) RETURNING *',
     [newTodo.text, newTodo.completed],
-    (err) => {
+    (err, result) => {
       if (err) {
         console.error(err);
         res.status(500).json({ message: 'Internal server error' });
       } else {
-        res.json(newTodo);
+        res.json(result.rows[0]);
       }
     }
   );
@@ -58,7 +41,7 @@ app.post('/api/todos', (req, res) => {
 
 // Read
 app.get('/api/todos', (req, res) => {
-  pool.query('SELECT * FROM todos', (err, result) => {
+  db_conn.query('SELECT * FROM todos', (err, result) => {
     if (err) {
       console.error(err);
       res.status(500).json({ message: 'Internal server error' });
@@ -72,7 +55,7 @@ app.get('/api/todos', (req, res) => {
 app.get('/api/todos/:id', (req, res) => {
   const { id } = req.params;
 
-  pool.query(
+  db_conn.query(
     'SELECT * FROM todos WHERE id = $1',
     [id],
     (err, result) => {
@@ -93,16 +76,15 @@ app.put('/api/todos/:id', (req, res) => {
   const { id } = req.params;
   const { text, completed } = req.body;
 
-  pool.query(
-    'UPDATE todos SET text = $1, completed = $2 WHERE id = $3',
+  db_conn.query(
+    'UPDATE todos SET text = $1, completed = $2 WHERE id = $3 RETURNING *',
     [text, completed, id],
     (err, result) => {
       if (err) {
         console.error(err);
         res.status(500).json({ message: 'Internal server error' });
-      } else if (result.rowCount > 0) {
-        const updatedTodo = { id, text, completed };
-        res.json(updatedTodo);
+      } else if (result.rows.length > 0) {
+        res.json(result.rows[0]);
       } else {
         res.status(404).json({ message: 'Todo not found' });
       }
@@ -114,7 +96,7 @@ app.put('/api/todos/:id', (req, res) => {
 app.delete('/api/todos/:id', (req, res) => {
   const { id } = req.params;
 
-  pool.query(
+  db_conn.query(
     'DELETE FROM todos WHERE id = $1',
     [id],
     (err, result) => {
