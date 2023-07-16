@@ -11,7 +11,6 @@ body {
 
 .todo-container {
   width: 400px;
-  height: 200px;
   box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
   align-items: center;
   justify-content: center;
