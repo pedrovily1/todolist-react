@@ -10,12 +10,12 @@ body {
 }
 
 .todo-container {
-  width: 400px;
+  display: flexbox;
   box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
   align-items: center;
   justify-content: center;
   background-color: #ffffff;
-  padding: 20px;
+  padding: 50px;
   border-radius: 8px;
   transition: transform 0.3s ease;
 
@@ -31,27 +31,6 @@ body {
   font-weight: 80;
 }
 
-.todo-container input[type="text"] {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-  margin-left: -10px;
-
-  border-radius: 4px;
-}
-
-.todo-container button {
-  padding: 8px 12px;
-  background-color: #4caf50;
-  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.4);
-  margin-left: 160px;
-  margin-top: 10px;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
 
 .todo-container button:hover {
   background-color: #45a448;
@@ -70,14 +49,96 @@ body {
 
 .todo-container li button {
   margin-left: 10px;
-  background-color: #f44336;
+  background-color: #847b7bb9;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  justify-content: end;
 }
 
 .todo-container li button:hover {
   background-color: #e53935;
+}
+
+.input-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.todo-container input[type="text"] {
+  flex-grow: 10;
+  padding: 5px;
+  margin-right: -0px; /* Adding some space between the input and the button */
+  border-radius: 10px;
+}
+
+.todo-container button {
+  padding: 8px 12px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  
+}
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.todo-content {
+  display: flex;
+  align-items: center;
+}
+
+.todo-actions {
+  display: flex;
+  align-items: center;
+}
+
+.todo-buttons {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.todo-checkbox {
+  width: 20px; /* Adjust as needed */
+  height: 20px; /* Adjust as needed */
+  margin-left: 5px;
+  margin-right: 0px; /* Space between checkbox and buttons */
+  border-radius: 10px;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+
+.fade-exit {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
+.hypnosis{
+  color: #FF0000;
+
+   width: 100px ;
+
+   height: 100px;
 }

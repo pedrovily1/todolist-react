@@ -1,21 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import './index.css';
+import TodoList from './components/TodoList';
+import TodoInput from './components/TodoInput';
+import { BarWave  } from "react-cssfx-loading";
+import { CSSTransition, SwitchTransition } from 'react-transition-group';
+
+
 
 function App() {
   const [todos, setTodos] = useState([]);
   const [newTodoText, setNewTodoText] = useState('');
   const [editingId, setEditingId] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
-    fetch('/api/todos')
+    fetch('/api/todos/')
       .then(response => response.json())
-      .then(data => setTodos(data));
+      .then(data => {
+        // Use setTimeout to delay the setting of state
+        setTimeout(() => {
+          setTodos(data);
+          setIsLoading(false); // Set loading to false after data is fetched
+        }, 2000); // Delay for 2 seconds
+      });
   }, []);
+  
 
   function addTodo() {
     const newTodo = { text: newTodoText };
 
-    fetch('/api/todos', {
+    fetch('/api/todos/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -54,40 +69,38 @@ function App() {
       });
   }
 
+ 
   return (
     <div className="todo-container">
-      <h1>Things I need to do</h1>
-      <input
-        type="text"
-        value={newTodoText}
-        onChange={e => setNewTodoText(e.target.value)}
-      />
-      <button onClick={addTodo}>Add todo</button>
-
-      <ul>
-        {todos.map(todo => (
-          <li key={todo.id}>
-            {editingId === todo.id ? (
-              <input
-                type="text"
-                value={todo.text}
-                onChange={e => updateTodo(todo.id, e.target.value, todo.completed)}
+      <SwitchTransition>
+        <CSSTransition
+          key={isLoading ? 'Loading' : 'App'}
+          addEndListener={(node, done) => {
+            node.addEventListener("transitionend", done, false);
+          }}
+          classNames='fade'
+        >
+          {isLoading ? (
+            <BarWave  />
+          ) : (
+            <>
+              <h1>Things I need to do</h1>
+              <TodoInput
+                newTodoText={newTodoText}
+                setNewTodoText={setNewTodoText}
+                addTodo={addTodo}
               />
-            ) : (
-              <span>{todo.text}</span>
-            )}
-            <input
-              type="checkbox"
-              checked={todo.completed}
-              onChange={e => updateTodo(todo.id, todo.text, e.target.checked)}
-            />
-            <button onClick={() => setEditingId(editingId === todo.id ? null : todo.id)}>
-              {editingId === todo.id ? 'Done' : 'Edit'}
-            </button>
-            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
+              <TodoList
+                todos={todos}
+                editingId={editingId}
+                setEditingId={setEditingId}
+                updateTodo={updateTodo}
+                deleteTodo={deleteTodo}
+              />
+            </>
+          )}
+        </CSSTransition>
+      </SwitchTransition>
     </div>
   );
 }
