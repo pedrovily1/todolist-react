@@ -1,6 +1,9 @@
 import React from 'react';
+import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
- 
+import DeleteIcon from '@mui/icons-material/Delete';
+import CreateIcon from '@mui/icons-material/Create';
+import DoneIcon from '@mui/icons-material/Done';
 
 function TodoItem({ todo, editingId, setEditingId, updateTodo, deleteTodo }) {
   return (
