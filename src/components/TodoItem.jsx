@@ -1,4 +1,9 @@
 import React from 'react';
+import Stack from '@mui/material/Stack';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import CreateIcon from '@mui/icons-material/Create';
+import DoneIcon from '@mui/icons-material/Done';
 
 function TodoItem({ todo, editingId, setEditingId, updateTodo, deleteTodo }) {
   return (
@@ -11,23 +16,35 @@ function TodoItem({ todo, editingId, setEditingId, updateTodo, deleteTodo }) {
             onChange={e => updateTodo(todo.id, e.target.value, todo.completed)}
           />
         ) : (
-          <span>{todo.text}</span>
+        <span className={todo.completed ? 'completed' : ''}>{todo.text}</span>
         )}
       </div>
       <div className="todo-actions">
+
+        <label className="checkbox-container">
         <input
           type="checkbox"
-          className="todo-checkbox"
+          className="checkmark"
           checked={todo.completed}
           onChange={e => updateTodo(todo.id, todo.text, e.target.checked)}
         />
-        <div className="todo-buttons">
-          <button onClick={() => setEditingId(editingId === todo.id ? null : todo.id)}>
-            {editingId === todo.id ? 'Done' : 'Edit'}
-          </button>
-          <button onClick={() => deleteTodo(todo.id)}>Delete</button>
-        </div>
-      </div>
+        </label>
+        
+            <IconButton className='Edit' onClick={() => setEditingId(editingId === todo.id ? null : todo.id)} >
+            {editingId === todo.id ?   <DoneIcon/> : <CreateIcon/>}
+            </IconButton>
+
+            <link
+             rel="stylesheet"
+                href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            />
+       
+           
+      <IconButton  className="Delete" aria-label="delete" size="large" onClick={() => deleteTodo(todo.id)}>
+        <DeleteIcon />
+      </IconButton>
+      
+       </div>
     </li>
   );
 }
