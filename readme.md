@@ -2,6 +2,9 @@
 
 This is a simple Todo application built with React.
 
+![2023-07-19_11h01_57](https://github.com/pedrovily1/todolist-react/assets/127983785/b5f19169-b6b6-4566-96ae-d4c49c8792c1)
+
+ 
 ## Features
 
 - Add new todos
